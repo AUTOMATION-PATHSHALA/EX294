@@ -1,5 +1,7 @@
 #!/bin/bash
 
+yum install ansible -y
+
 ansible localhost -m shell -a "adduser autoadmin;echo 'devops' | passwd --stdin autoadmin"
 
 ansible localhost -m file -a "path=/home/autoadmin/.ssh state=directory"
