@@ -1,0 +1,43 @@
+---
+- name: Archive /etc mount point
+  hosts: localhost
+  tasks:
+
+    - name: Create Backup Directory
+      file:
+        state: directory
+        path: /home/praveen/plays/backup
+        mode: 0755
+        group: praveen
+        owner: praveen
+
+- name: Archive /etc mount point
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Create Backup Directory
+      file:
+        state: directory
+        path: /home/praveen/backup
+        mode: 0755
+        group: praveen
+        owner: praveen
+
+    - name: Compress /etc mount point
+      archive:
+        path: /etc
+        dest: /home/praveen/backup/configuration.gz
+
+
+- name: Download Compress file from manage nodes
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Download gz file from manage node
+      fetch:
+        src: /home/praveen/backup/configuration.gz
+        dest: /home/praveen/plays/backup/{{ inventory_hostname }}-configuration.gz
+        flat: yes
+
