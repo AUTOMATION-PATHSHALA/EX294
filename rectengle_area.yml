@@ -1,0 +1,12 @@
+---
+- name: Calculate Area of rectangle
+  hosts: localhost
+  tasks:
+    - name: Get area of box
+      get_area:
+        length: 4
+        breath: 5
+        action: "rectangle"
+      register: area
+
+    - debug: var=area

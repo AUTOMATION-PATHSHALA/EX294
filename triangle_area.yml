@@ -1,0 +1,12 @@
+---
+- name: Calculate Area of triangle
+  hosts: localhost
+  tasks:
+    - name: Get area of triangle
+      get_area:
+        hight: 4
+        breath: 5
+        action: "triangle"
+      register: area
+
+    - debug: var=area
